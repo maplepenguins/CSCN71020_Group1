@@ -8,7 +8,7 @@ int side = 0;
 
 int main() {
 	bool continueProgram = true;
-	while (continueProgram) {
+	do {
 		printWelcome();
 
 		int shapeChoice = printShapeMenu();
@@ -30,7 +30,7 @@ int main() {
 			printf_s("Invalid value entered.\n");
 			break;
 		}
-	}
+	} while (continueProgram);
 	return 0;
 }
 
@@ -55,9 +55,10 @@ int printShapeMenu() {
 }
 
 int* getTriangleSides(int* triangleSides) {
-	printf_s("Enter the three sides of the triangle: ");
+	printf_s("Enter the three sides of the triangle\n");
 	for (int i = 0; i < 3; i++)
 	{
+		printf("Side %d: ", i +	1);
 		scanf_s("%d", &triangleSides[i]);
 	}
 	return triangleSides;
