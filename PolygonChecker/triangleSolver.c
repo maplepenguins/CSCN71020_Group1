@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include "triangleSolver.h"
+#define M_PI 3.14159265358979323846//added this here for the anglefind function
 
 char* analyzeTriangle(int side1, int side2, int side3) {
 	char* result = "";
@@ -25,25 +26,33 @@ char* analyzeTriangle(int side1, int side2, int side3) {
 	
 
 void Anglefind(int side1, int side2, int side3) {
-	float s, area, radius, A1, B2, C3;
-	float pie = 3.14;
-
-	s = (side1 + side2 + side3) / 2;
-	if (side1 > s || side2 > s || side3 > s) {
-
-		printf("The three sides do not form a triangle");
+	//checks if triangle sides are valid
+	if (side1 + side2 <= side3 || side2 + side3 <= side1 || side1 + side3 <= side2) {
+		printf("The sides do not form a valid triangle.\n");
+		return;
 	}
-	else {
-		area = sqrt(s * (s - side1) * (s - side2) * (s - side3));
-		radius = (side1 * side2 * side3) / (4 * area);
 
-		A1 = (180 / pie) * asin(side1 / (2 * radius));
-		B2 = (180 / pie) * asin(side2 / (2 * radius));
-		C3 = (180 / pie) * asin(side3 / (2 * radius));
+	//thiis find the cosine for each angle which will be used later
+	double angleA_cos = (side2 * side2 + side3 * side3 - side1 * side1) / (2.0 * side2 * side3);
+	double angleB_cos = (side1 * side1 + side3 * side3 - side2 * side2) / (2.0 * side1 * side3);
+	double angleC_cos = (side1 * side1 + side2 * side2 - side3 * side3) / (2.0 * side1 * side2);
 
-		printf("The Angles are:\n%.2f\n%.2f\n%.2f", A1, B2, C3);
-	}
+	//added this here because there can be precision error messing up the calculation so with this there will be no error
+	if (angleA_cos > 1.0) angleA_cos = 1.0;
+	if (angleA_cos < -1.0) angleA_cos = -1.0;
+	if (angleB_cos > 1.0) angleB_cos = 1.0;
+	if (angleB_cos < -1.0) angleB_cos = -1.0;
+	if (angleC_cos > 1.0) angleC_cos = 1.0;
+	if (angleC_cos < -1.0) angleC_cos = -1.0;
+
+	//use cosine and pie to caclulate the angle
+	double angleA = acos(angleA_cos) * (180.0 / M_PI);
+	double angleB = acos(angleB_cos) * (180.0 / M_PI);
+	double angleC = acos(angleC_cos) * (180.0 / M_PI);
+
+	//prints out the result
+	printf("The angles of the triangle are:\n");
+	printf("Angle A = %.2f degrees\n", angleA);
+	printf("Angle B = %.2f degrees\n", angleB);
+	printf("Angle C = %.2f degrees\n", angleC);
 }
-
-
-
