@@ -5,26 +5,25 @@
 
 char* analyzeTriangle(int side1, int side2, int side3) {
 	char* result = "";
-	if (side1 <= 0 || side2 <= 0 || side3 <= 0) {
+	if (side1 <= 0 || side2 <= 0 || side3 <= 0) { 
 		result = "Not a triangle";
-		return;
+		return result;
 	}
 	else if (side1 == side2 && side1 == side3) {
 		result = "Equilateral triangle";
-		return;
+		return result;
 	}
 	else if ((side1 == side2 && side1 != side3) || 
 		(side1 == side3 && side1 != side2))
 	{
 		result = "Isosceles triangle";
-		return;
+		return result;
 	}
 	else {
 		result = "Scalene triangle";
-		return;
+		return result;
 	}
-	return result;
-
+	
 }
 	
 
@@ -48,6 +47,5 @@ void Anglefind(int side1, int side2, int side3) {
 		printf("The Angles are:\n%.2f\n%.2f\n%.2f", A1, B2, C3);
 	}
 }
-
 
 
