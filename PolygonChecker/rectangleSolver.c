@@ -6,11 +6,9 @@
 
 // returns array of side lengths for rectangle
 double* calculateRectangleSides(Point* rectanglePoints[]) {
-	double sideLengths[4];
-	int x1;
-	int y1;
-	int x2;
-	int y2;
+	// array of side lengths and diagonals (diagonals stored in last 2 elements)
+	double sideLengths[6];
+	int x1, x2, y1, y2;
 	for (int i = 0; i < 4; i++) {
 		x1 = rectanglePoints[i]->x;
 		y1 = rectanglePoints[i]->y;
@@ -24,9 +22,21 @@ double* calculateRectangleSides(Point* rectanglePoints[]) {
 		}
 		sideLengths[i] = sqrt( pow(x2-x1, 2) + pow(y2 - y1, 2) );
 	}
+	// calculates distance of diagonals
+	x2 = rectanglePoints[0]->x;
+	y2 = rectanglePoints[0]->y;
+	x2 = rectanglePoints[2]->x;
+	y2 = rectanglePoints[2]->y;
+	sideLengths[4] = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+
+	x2 = rectanglePoints[1]->x;
+	y2 = rectanglePoints[1]->y;
+	x2 = rectanglePoints[3]->x;
+	y2 = rectanglePoints[3]->y;
+	sideLengths[5] = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 	return sideLengths;
 }
 
-char* analyzeRectangle(int side1, int side2, int side3, int side4) {
-
+char* analyzeRectangle(double* sideLengths[]) {
+	
 }

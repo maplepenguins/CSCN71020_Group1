@@ -5,5 +5,5 @@ typedef struct Point {
 } Point;
 
 double* calculateRectangleSides(Point* rectanglePoints[]);
-char* analyzeRectangle(int side1, int side2, int side3, int side4);
+char* analyzeRectangle(double* sideLengths[]);
 
