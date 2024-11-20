@@ -37,6 +37,26 @@ double* calculateRectangleSides(Point* rectanglePoints[]) {
 	return sideLengths;
 }
 
+
+
 char* analyzeRectangle(double* sideLengths[]) {
 	
+}
+
+
+double calculateRectanglePerimeter(Point* rectanglePoints[]) { //calculate perimeter
+
+	double* sideLengths = calculateRectangleSides(rectanglePoints);
+
+	double perimeter = sideLengths[0] + sideLengths[1] + sideLengths[2] + sideLengths[3];
+
+	return perimeter;
+}
+
+double calculateRectangleArea(double* sideLengths) { //calculate area
+
+	double area = sideLengths[0] * sideLengths[1];
+
+	return area;
+
 }

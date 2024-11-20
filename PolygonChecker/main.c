@@ -26,6 +26,7 @@ int main() {
 			break;
 		case 2:
 			printf_s("Rectangle Selected.\n");
+
 			break;
 		case 0:
 			continueProgram = false;
@@ -68,6 +69,8 @@ int* getTriangleSides(int* triangleSides) {
 	}
 	return triangleSides;
 }
+
+
 
 int* getRectanglePoints(int* rectanglePointX, int* rectanglePointY) {	
 

@@ -6,4 +6,7 @@ typedef struct Point {
 
 double* calculateRectangleSides(Point* rectanglePoints[]);
 char* analyzeRectangle(double* sideLengths[]);
+double calculateRectangleArea(double* sideLengths);
+double calculateRectanglePerimeter(Point* rectanglePoints[]);
+
 
