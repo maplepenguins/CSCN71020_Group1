@@ -4,22 +4,28 @@
 #include "triangleSolver.h"
 #define M_PI 3.14159265358979323846//added this here for the anglefind function
 
+
 char* analyzeTriangle(int side1, int side2, int side3) {
+	//anaylyzes whether inputs are triangle
 	char* result = "";
+	// if any sides equal to 0 its not a triangle
 	if (side1 <= 0 || side2 <= 0 || side3 <= 0) { 
 		result = "Not a triangle";
 		return result;
 	}
+	//if all sides are equal it is equilateral triangle
 	else if (side1 == side2 && side1 == side3) {
 		result = "Equilateral triangle";
 		return result;
 	}
+	//if 2 sides are equal and the 3rd is not its isosceles
 	else if ((side1 == side2 && side1 != side3) || 
 		(side1 == side3 && side1 != side2))
 	{
 		result = "Isosceles triangle";
 		return result;
 	}
+	// if none of the sides equal anything above its scalene
 	else {
 		result = "Scalene triangle";
 		return result;
