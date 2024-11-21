@@ -40,7 +40,6 @@ void Anglefind(int side1, int side2, int side3) {
 		printf("The sides do not form a valid triangle.\n");
 		return;
 	}
-
 	//thiis find the cosine for each angle which will be used later
 	double angleA_cos = (side2 * side2 + side3 * side3 - side1 * side1) / (2.0 * side2 * side3);
 	double angleB_cos = (side1 * side1 + side3 * side3 - side2 * side2) / (2.0 * side1 * side3);
