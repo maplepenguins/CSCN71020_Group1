@@ -26,6 +26,9 @@ int main() {
 			break;
 		case 2:
 			printf_s("Rectangle Selected.\n");
+			int rectangleSides[2] = {0,0};
+			int* rectangleSidesPtr = getRectanglePoints(rectangleSides);
+			
 			break;
 		case 0:
 			continueProgram = false;
@@ -69,7 +72,14 @@ int* getTriangleSides(int* triangleSides) {
 	return triangleSides;
 }
 
-int* getRectanglePoints(int* rectanglePointX, int* rectanglePointY) {	
 
+
+int* getRectanglePoints(int* rectanglePointX, int* rectanglePointY) {	
+	printf_s("Enter the 2 sides of the rectangle\n");
+	for (int i = 0; i < 2; i++)
+	{
+		printf("Side %d: ", i + 1);
+		scanf_s("%d", &rectangleSides[i]);
+	}
 	return rectanglePointX, rectanglePointY;
 }

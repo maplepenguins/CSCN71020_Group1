@@ -41,3 +41,21 @@ char* analyzeRectangle(Point rectanglePoints[4]) {
 	sprintf_s(result, sizeof(result), "The points form a rectangle where Perimeter: %f and Area: %f", perimeter, area);
 	return result;
 }
+
+
+double calculateRectanglePerimeter(Point* rectanglePoints[]) { //calculate perimeter
+
+	double* sideLengths = calculateRectangleSides(rectanglePoints);
+
+	double perimeter = sideLengths[0] + sideLengths[1] + sideLengths[2] + sideLengths[3];
+
+	return perimeter;
+}
+
+double calculateRectangleArea(double* sideLengths) { //calculate area
+
+	double area = sideLengths[0] * sideLengths[1];
+
+	return area;
+
+}
