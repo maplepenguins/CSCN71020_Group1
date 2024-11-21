@@ -4,39 +4,40 @@
 
 #include "rectangleSolver.h"
 
-// returns array of side lengths for rectangle
-double* calculateRectangleSides(Point* rectanglePoints[]) {
-	// array of side lengths and diagonals (diagonals stored in last 2 elements)
-	double sideLengths[6];
-	int x1, x2, y1, y2;
-	for (int i = 0; i < 4; i++) {
-		x1 = rectanglePoints[i]->x;
-		y1 = rectanglePoints[i]->y;
-		if (i == 3) {
-			x2 = rectanglePoints[0]->x;
-			y2 = rectanglePoints[0]->y;
-		}
-		else {
-			x2 = rectanglePoints[i + 1]->x;
-			y2 = rectanglePoints[i + 1]->y;
-		}
-		sideLengths[i] = sqrt( pow(x2-x1, 2) + pow(y2 - y1, 2) );
-	}
-	// calculates distance of diagonals
-	x2 = rectanglePoints[0]->x;
-	y2 = rectanglePoints[0]->y;
-	x2 = rectanglePoints[2]->x;
-	y2 = rectanglePoints[2]->y;
-	sideLengths[4] = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-
-	x2 = rectanglePoints[1]->x;
-	y2 = rectanglePoints[1]->y;
-	x2 = rectanglePoints[3]->x;
-	y2 = rectanglePoints[3]->y;
-	sideLengths[5] = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-	return sideLengths;
+// returns distance between 2 points
+float calculateDistance(Point p1, Point p2) {
+	return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
 
-char* analyzeRectangle(double* sideLengths[]) {
-	
+// checks if the points form a valid rectangle based on side lengths and diagonals between points
+bool isRectangle(Point rectanglePoints[4]) {
+	float sides[4], diagonals[2];
+	sides[0] = calculateDistance(rectanglePoints[0], rectanglePoints[1]);
+	sides[1] = calculateDistance(rectanglePoints[1], rectanglePoints[2]);
+	sides[2] = calculateDistance(rectanglePoints[2], rectanglePoints[3]);
+	sides[3] = calculateDistance(rectanglePoints[3], rectanglePoints[0]);
+
+	diagonals[0] = calculateDistance(rectanglePoints[0], rectanglePoints[2]);
+	diagonals[1] = calculateDistance(rectanglePoints[1], rectanglePoints[3]);
+
+	// is rectangle if opposite sides and diagonals are equal to each other
+	return (sides[0] == sides[2] && sides[1] == sides[3] && diagonals[0] == diagonals[1]);
+}
+
+// returns perimeter and area string if the points form a valid rectangle
+char* analyzeRectangle(Point rectanglePoints[4]) {
+	if (!isRectangle(rectanglePoints)) {
+		return "The points do not form a rectangle.";
+	}
+
+	// only need to get 2 adjacent sides to calculate area and perimeter
+	float sides[2];
+	sides[0] = calculateDistance(rectanglePoints[0], rectanglePoints[1]);
+	sides[1] = calculateDistance(rectanglePoints[1], rectanglePoints[2]);
+	float perimeter = 2 * (sides[0] + sides[1]);
+	float area = sides[0] * sides[1];
+
+	char result[200];
+	sprintf_s(result, sizeof(result), "The points form a rectangle where Perimeter: %f and Area: %f", perimeter, area);
+	return result;
 }

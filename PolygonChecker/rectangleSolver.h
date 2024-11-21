@@ -4,6 +4,7 @@ typedef struct Point {
 	int y;
 } Point;
 
-double* calculateRectangleSides(Point* rectanglePoints[]);
-char* analyzeRectangle(double* sideLengths[]);
+float calculateDistance(Point p1, Point p2);
+bool isRectangle(Point rectanglePoints[4]);
+char* analyzeRectangle(Point rectanglePoints[4]);
 
