@@ -14,12 +14,13 @@ int main() {
 
 		switch (shapeChoice)
 		{
-		case 1:
+		case 1: // calculate triangle
 			printf_s("Triangle selected.\n");
 			int triangleSides[3] = { 0, 0, 0 };
 			int* triangleSidesPtr = getTriangleSides(triangleSides);
 			char* result = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
-			printf_s("%s\n", result);
+			printf_s("%s\n", result); 
+			Anglefind(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			break;
 		case 2:
 			printf_s("Rectangle Selected.\n");
@@ -54,9 +55,13 @@ int printShapeMenu() {
 	
 	int shapeChoice;
 
-	printf_s("Enter number: ");
-	scanf_s("%1o", &shapeChoice);
-
+	printf_s("Please make a selection between 0-2:  ");
+	
+	//checks user input to see if its between one and two, if not asks the user to enter correct input
+	while (scanf_s("%d", &shapeChoice) != 1 || shapeChoice < 0 || shapeChoice >2) { 
+		while (getchar() != '\n'); 
+		printf("Invalid input! Please enter selection between 0-2: ");
+	}
 	return shapeChoice;
 }
 
