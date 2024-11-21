@@ -26,36 +26,21 @@ bool isRectangle(Point rectanglePoints[4]) {
 
 // returns perimeter and area string if the points form a valid rectangle
 char* analyzeRectangle(Point rectanglePoints[4]) {
-	if (!isRectangle(rectanglePoints)) {
-		return "The points do not form a rectangle.";
-	}
+	char result[200];
 
 	// only need to get 2 adjacent sides to calculate area and perimeter
 	float sides[2];
 	sides[0] = calculateDistance(rectanglePoints[0], rectanglePoints[1]);
 	sides[1] = calculateDistance(rectanglePoints[1], rectanglePoints[2]);
-	float perimeter = 2 * (sides[0] + sides[1]);
-	float area = sides[0] * sides[1];
 
-	char result[200];
+	float perimeter = 2 * (sides[0] + sides[1]);
+	// if points do not form a rectangle only print perimeter
+	if (!isRectangle(rectanglePoints)) {
+		sprintf_s(result, sizeof(result), "The points do not form a rectangle where Perimeter: %f", perimeter);
+		return result;
+	}
+	// if points do form a rectangle, print both area and perimeter
+	float area = sides[0] * sides[1];
 	sprintf_s(result, sizeof(result), "The points form a rectangle where Perimeter: %f and Area: %f", perimeter, area);
 	return result;
-}
-
-
-double calculateRectanglePerimeter(Point* rectanglePoints[]) { //calculate perimeter
-
-	double* sideLengths = calculateRectangleSides(rectanglePoints);
-
-	double perimeter = sideLengths[0] + sideLengths[1] + sideLengths[2] + sideLengths[3];
-
-	return perimeter;
-}
-
-double calculateRectangleArea(double* sideLengths) { //calculate area
-
-	double area = sideLengths[0] * sideLengths[1];
-
-	return area;
-
 }

@@ -5,8 +5,6 @@
 #include "triangleSolver.h"
 #include "rectangleSolver.h"
 
-int side = 0;
-
 int main() {
 	bool continueProgram = true;
 	do {
@@ -20,15 +18,15 @@ int main() {
 			printf_s("Triangle selected.\n");
 			int triangleSides[3] = { 0, 0, 0 };
 			int* triangleSidesPtr = getTriangleSides(triangleSides);
-			//printf_s("! %d\n", triangleSidesPtr[0]);
 			char* result = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			printf_s("%s\n", result);
 			break;
 		case 2:
 			printf_s("Rectangle Selected.\n");
-			int rectangleSides[2] = {0,0};
-			int* rectangleSidesPtr = getRectanglePoints(rectangleSides);
-			
+			Point rectangleSides[4];
+			getRectanglePoints(rectangleSides);
+			char* output = analyzeRectangle(rectangleSides);
+			printf_s("%s\n", output);
 			break;
 		case 0:
 			continueProgram = false;
@@ -72,14 +70,12 @@ int* getTriangleSides(int* triangleSides) {
 	return triangleSides;
 }
 
-
-
-int* getRectanglePoints(int* rectanglePointX, int* rectanglePointY) {	
-	printf_s("Enter the 2 sides of the rectangle\n");
-	for (int i = 0; i < 2; i++)
+// gets user input for 4 points in order and stores it in array passed by reference
+void getRectanglePoints(Point rectanglePoints[]) {
+	printf_s("Enter the 4 points of the rectangle starting from the top left, clockwise\n");
+	for (int i = 0; i < 4; i++)
 	{
-		printf("Side %d: ", i + 1);
-		scanf_s("%d", &rectangleSides[i]);
+		printf("Point %d (x,y): ", i + 1);
+		scanf_s("%d %d", &rectanglePoints[i].x, &rectanglePoints[i].y);
 	}
-	return rectanglePointX, rectanglePointY;
 }
