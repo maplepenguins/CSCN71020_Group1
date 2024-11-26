@@ -20,7 +20,17 @@ int main() {
 			int* triangleSidesPtr = getTriangleSides(triangleSides);
 			char* result = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			printf_s("%s\n", result); 
-			Anglefind(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+			//calculates only if triangle valid
+			if (result != "Not a triangle") {
+				//get angles as a pointer to an array
+				double* angles = Anglefind(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+				if (angles[0] != -1) { //checks for valid angles
+					printf("Angles of the triangle:\n");
+					printf("Angle A: %.2f degrees\n", angles[0]);
+					printf("Angle B: %.2f degrees\n", angles[1]);
+					printf("Angle C: %.2f degrees\n", angles[2]);
+				}
+			}
 			break;
 		case 2:
 			printf_s("Rectangle Selected.\n");

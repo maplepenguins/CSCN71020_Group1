@@ -34,18 +34,22 @@ char* analyzeTriangle(int side1, int side2, int side3) {
 }
 	
 
-void Anglefind(int side1, int side2, int side3) {
-	//checks if triangle sides are valid
+double* Anglefind(int side1, int side2, int side3) {
+	static double angles[3];  //static memory to return angles
+
+	//check if trianle is valid
 	if (side1 + side2 <= side3 || side2 + side3 <= side1 || side1 + side3 <= side2) {
 		printf("The sides do not form a valid triangle.\n");
-		return;
+		angles[0] = angles[1] = angles[2] = -1;  //invalid
+		return angles;
 	}
-	//thiis find the cosine for each angle which will be used later
+
+	//calculate cosine
 	double angleA_cos = (side2 * side2 + side3 * side3 - side1 * side1) / (2.0 * side2 * side3);
 	double angleB_cos = (side1 * side1 + side3 * side3 - side2 * side2) / (2.0 * side1 * side3);
 	double angleC_cos = (side1 * side1 + side2 * side2 - side3 * side3) / (2.0 * side1 * side2);
 
-	//added this here because there can be precision error messing up the calculation so with this there will be no error
+	//correct and inaccuracies 
 	if (angleA_cos > 1.0) angleA_cos = 1.0;
 	if (angleA_cos < -1.0) angleA_cos = -1.0;
 	if (angleB_cos > 1.0) angleB_cos = 1.0;
@@ -53,14 +57,10 @@ void Anglefind(int side1, int side2, int side3) {
 	if (angleC_cos > 1.0) angleC_cos = 1.0;
 	if (angleC_cos < -1.0) angleC_cos = -1.0;
 
-	//use cosine and pie to caclulate the angle
-	double angleA = acos(angleA_cos) * (180.0 / M_PI);
-	double angleB = acos(angleB_cos) * (180.0 / M_PI);
-	double angleC = acos(angleC_cos) * (180.0 / M_PI);
+	//use acos to find angle in radians then covert to degrees
+	angles[0] = acos(angleA_cos) * (180.0 / M_PI);
+	angles[1] = acos(angleB_cos) * (180.0 / M_PI);
+	angles[2] = acos(angleC_cos) * (180.0 / M_PI);
 
-	//prints out the result
-	printf("The angles of the triangle are:\n");
-	printf("Angle A = %.2f degrees\n", angleA);
-	printf("Angle B = %.2f degrees\n", angleB);
-	printf("Angle C = %.2f degrees\n", angleC);
+	return angles;
 }
