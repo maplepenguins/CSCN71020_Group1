@@ -13,6 +13,11 @@ char* analyzeTriangle(int side1, int side2, int side3) {
 		result = "Not a triangle";
 		return result;
 	}
+	else if (side1 + side2 <= side3 || side1 + side3 <= side2 || side2 + side3 <= side1) {
+		result = "Not a triangle";
+		return result;
+	}
+
 	//if all sides are equal it is equilateral triangle
 	else if (side1 == side2 && side1 == side3) {
 		result = "Equilateral triangle";
@@ -25,7 +30,6 @@ char* analyzeTriangle(int side1, int side2, int side3) {
 		result = "Isosceles triangle";
 		return result;
 	}
-	// if none of the sides equal anything above its scalene
 	else {
 		result = "Scalene triangle";
 		return result;
