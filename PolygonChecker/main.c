@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "main.h"
 #include "triangleSolver.h"
@@ -38,6 +39,7 @@ int main() {
 			getRectanglePoints(rectangleSides);
 			char* output = analyzeRectangle(rectangleSides);
 			printf_s("%s\n", output);
+			free(output);
 			break;
 		case 0:
 			continueProgram = false;
@@ -85,7 +87,7 @@ int* getTriangleSides(int* triangleSides) {
 				valid = 1; 
 			}
 			else {
-				printf("Invalid input.\n\n", i + 1); //if input isnt valid will reprompt
+				printf("Invalid input.\n"); //if input isnt valid will reprompt
 				while (getchar() != '\n'); 
 			}
 		}
