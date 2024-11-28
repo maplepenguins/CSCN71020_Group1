@@ -13,6 +13,10 @@ extern "C" {
 	float calculateDistance(Point p1, Point p2);
 	bool isRectangle(Point rectanglePoints[4]);
 	char* analyzeRectangle(Point rectanglePoints[4]);
+	void printWelcome();
+	int printShapeMenu();
+	int* getTriangleSides(int* triangleSides);
+	void getRectanglePoints(Point rectanglePoints[]);
 }
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -116,7 +120,7 @@ namespace polygonCheckerTests
 		}
 	};
 
-	TEST_CLASS(fourpoints)
+	TEST_CLASS(Four_Points_Functionality)
 	{
 	public:
 
@@ -220,5 +224,29 @@ namespace polygonCheckerTests
 			free(result);
 		}
 
+		TEST_METHOD(NegativePointsTest) 
+		{
+			// This is to test the functionality of a rectangle with negative points
+			Point rectanglePoints[4] = { {-5,-1}, {-1,-1}, {-1,-4}, {-5,-4} };
+			float Result = isRectangle(rectanglePoints);
+			Assert::IsTrue(Result);
+		}
+
+		TEST_METHOD(RectangleWithDifferentPointsTest) 
+		{
+			// This is to test the functionality of a rectangle with unique x and y points
+			// On a graph, the rectangle is a square diamond
+			Point rectanglePoints[4] = { {2,3}, {4,2}, {3,0}, {1,1} };
+			float Result = isRectangle(rectanglePoints);
+			Assert::IsTrue(Result);
+		}
+
+		TEST_METHOD(InvalidRectangleWithNoPointsTest)
+		{
+			// This is to test the functionality of a rectangle with zeros as its points
+			Point rectanglePoints[4] = { {0,0}, {0,0}, {0,0}, {0,0} };
+			float Result = isRectangle(rectanglePoints);
+			Assert::IsTrue(Result);
+		}
 	};
 }

@@ -98,6 +98,7 @@ int* getTriangleSides(int* triangleSides) {
 // gets user input for 4 points in order and stores it in array passed by reference
 void getRectanglePoints(Point rectanglePoints[]) {
 	printf_s("Enter the 4 points of the rectangle starting from the top left, clockwise\n");
+	printf_s("Separate the x and y with a space between the numbers\n");
 	for (int i = 0; i < 4; i++)
 	{
 		int valid = 0;

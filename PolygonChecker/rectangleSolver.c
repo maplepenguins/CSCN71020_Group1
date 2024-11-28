@@ -6,6 +6,7 @@
 #include "rectangleSolver.h"
 
 // returns distance between 2 points
+// calculation to find the distance between two given points
 float calculateDistance(Point p1, Point p2) {
 	return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
@@ -21,7 +22,7 @@ bool isRectangle(Point rectanglePoints[4]) {
 	diagonals[0] = calculateDistance(rectanglePoints[0], rectanglePoints[2]);
 	diagonals[1] = calculateDistance(rectanglePoints[1], rectanglePoints[3]);
 
-	// is rectangle if opposite sides and diagonals are equal to each other
+	// is a rectangle if opposite sides and diagonals are equal to each other
 	return (sides[0] == sides[2] && sides[1] == sides[3] && diagonals[0] == diagonals[1]);
 }
 
