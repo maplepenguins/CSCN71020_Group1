@@ -6,17 +6,19 @@ extern "C" {
 	char* analyzeTriangle(int side1, int side2, int side3);
 	int* getTriangleSides(int* triangleSides);
 	double* Anglefind(int side1, int side2, int side3);
+	typedef struct Point {
+		int x;
+		int y;
+	} Point;
+	float calculateDistance(Point p1, Point p2);
+	bool isRectangle(Point rectanglePoints[4]);
+	char* analyzeRectangle(Point rectanglePoints[4]);
 }
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace polygonCheckerTests
 {
-	const double TOLERANCE = 0.1;
-
-	bool compare_double(double a, double b, double tolerance = TOLERANCE) {
-		return fabs(a - b) < tolerance;
-	}
 	TEST_CLASS(analyzeTriangleTests)
 	{
 	public:
@@ -108,18 +110,115 @@ namespace polygonCheckerTests
 		TEST_METHOD(TestLargeTriangle)
 		{
 			double* angles = Anglefind(100, 200, 250);
-			Assert::AreEqual(angles[0], 27.37, 0.01);  
-			Assert::AreEqual(angles[1], 39.99, 0.01);  
-			Assert::AreEqual(angles[2], 112.64, 0.01);}
+			Assert::AreEqual(angles[0], 22.33, 0.01);  
+			Assert::AreEqual(angles[1], 49.45, 0.01);  
+			Assert::AreEqual(angles[2], 108.21, 0.01);
+		}
 	};
 
 	TEST_CLASS(fourpoints)
 	{
 	public:
 
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(CalculateXDistanceTest)
 		{
-
+			// points with distance of 5 in X axis
+			Point p1 = { 0, 0 };
+			Point p2 = { 5, 0 };
+			float result = calculateDistance(p1, p2);
+			float expected = 5.0;
+			Assert::AreEqual(expected, result);
 		}
+
+		TEST_METHOD(CalculateYDistanceTest)
+		{
+			// points with distance of 5 in Y axis
+			Point p1 = { 0, 0 };
+			Point p2 = { 0, 5 };
+			float result = calculateDistance(p1, p2);
+			float expected = 5.0;
+			Assert::AreEqual(expected, result);
+		}
+
+		TEST_METHOD(ValidRectangleTest)
+		{
+			// 3 X 2 rectangle
+			Point rectanglePoints[] = {
+				{0, 0},
+				{3, 0},
+				{3, 2},
+				{0, 2}
+			};
+			float result = isRectangle(rectanglePoints);
+			Assert::IsTrue(result);
+		}
+
+		TEST_METHOD(ValidSquareTest)
+		{
+			// 3 X 3 Square
+			Point rectanglePoints[] = {
+				{0, 0},
+				{3, 0},
+				{3, 3},
+				{0, 3}
+			};
+			float result = isRectangle(rectanglePoints);
+			Assert::IsTrue(result);
+		}
+
+		TEST_METHOD(InvalidDiagonalsTest)
+		{
+			// Parallelogram has opposite sides equal but not equal diagonals
+			Point rectanglePoints[] = {
+				{1, 0},
+				{4, 0},
+				{3, 2},
+				{0, 2}
+			};
+			bool result = isRectangle(rectanglePoints);
+			Assert::IsFalse(result);
+		}
+
+		TEST_METHOD(InvalidTrapezoidTest)
+		{
+			// Trapezoid has equal diagonals but one pair of opposite sides not equal 
+			Point rectanglePoints[] = {
+				{1, 0},
+				{3, 0},
+				{4, 2},
+				{0, 2}
+			};
+			bool result = isRectangle(rectanglePoints);
+			Assert::IsFalse(result);
+		}
+
+		TEST_METHOD(InvalidRectanglePrintPerimeterTest)
+		{
+			// Parallelogram with side lengths 3, 2.236, 3, 2.236
+			Point rectanglePoints[] = {
+				{1, 0},
+				{4, 0},
+				{3, 2},
+				{0, 2}
+			};
+			char* result = analyzeRectangle(rectanglePoints);
+			Assert::AreEqual("The points do not form a rectangle where Perimeter: 10.47", result);
+			free(result);
+		}
+
+		TEST_METHOD(PrintValidAreaAndPerimeterTest)
+		{
+			// 3 X 2 rectangle
+			Point rectanglePoints[] = {
+				{0, 0},
+				{3, 0},
+				{3, 2},
+				{0, 2}
+			};
+			char* result = analyzeRectangle(rectanglePoints);
+			Assert::AreEqual("The points form a rectangle where Perimeter: 10.00 and Area: 6.00", result);
+			free(result);
+		}
+
 	};
 }

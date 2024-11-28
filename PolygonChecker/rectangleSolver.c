@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <math.h>
 
 #include "rectangleSolver.h"
@@ -26,7 +27,11 @@ bool isRectangle(Point rectanglePoints[4]) {
 
 // returns perimeter and area string if the points form a valid rectangle
 char* analyzeRectangle(Point rectanglePoints[4]) {
-	char result[200];
+	// Allocate memory for the result string dynamically
+	char* result = (char*)malloc(512 * sizeof(char));
+	if (!result) {
+		return NULL; // Handle memory allocation failure
+	}
 
 	// only need to get 2 adjacent sides to calculate area and perimeter
 	float sides[2];
@@ -36,11 +41,11 @@ char* analyzeRectangle(Point rectanglePoints[4]) {
 	float perimeter = 2 * (sides[0] + sides[1]);
 	// if points do not form a rectangle only print perimeter
 	if (!isRectangle(rectanglePoints)) {
-		sprintf_s(result, sizeof(result), "The points do not form a rectangle where Perimeter: %f", perimeter);
+		sprintf_s(result, 512, "The points do not form a rectangle where Perimeter: %.2f", perimeter);
 		return result;
 	}
 	// if points do form a rectangle, print both area and perimeter
 	float area = sides[0] * sides[1];
-	sprintf_s(result, sizeof(result), "The points form a rectangle where Perimeter: %f and Area: %f", perimeter, area);
+	sprintf_s(result, 512, "The points form a rectangle where Perimeter: %.2f and Area: %.2f", perimeter, area);
 	return result;
 }
